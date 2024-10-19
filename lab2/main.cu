@@ -133,9 +133,7 @@ int main() {
     CSC(cudaFreeArray(arr));
     CSC(cudaFree(dev_out));
 
-#ifndef BENCHMARK
     writeData(output_filename, w, h, pixels);
-#endif /* BENCHMARK */
 
     free(pixels);
     return 0;

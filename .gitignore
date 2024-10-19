@@ -4,4 +4,4 @@
 *.build
 *tests
 *.idea
-
+*.kate-swp
