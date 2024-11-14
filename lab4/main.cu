@@ -12,7 +12,7 @@ do {                    \
     }                                   \
 } while (0)
 
-// #define BENCHMARK
+#define BENCHMARK
 
 #ifdef BENCHMARK
 cudaEvent_t benchmarkStart, benchmarkStop;
@@ -40,10 +40,10 @@ struct abs_comparator {
     }
 };
 
-const int SWAP_ROWS_BLOCKS = 128;
-const int SWAP_ROWS_THREADS = 128;
-const int UPDATE_MATRIX_X_BLOCKS = 64;
-const int UPDATE_MATRIX_X_THREADS = 64;
+const int SWAP_ROWS_BLOCKS = 32;
+const int SWAP_ROWS_THREADS = 32;
+const int UPDATE_MATRIX_X_BLOCKS = 16;
+const int UPDATE_MATRIX_X_THREADS = 16;
 const int UPDATE_MATRIX_Y_BLOCKS = 32;
 const int UPDATE_MATRIX_Y_THREADS = 32;
 
@@ -62,8 +62,6 @@ __global__ void updateMatrix(double* matrix, int n, int i) {
     int id_y = blockDim.y * blockIdx.y + threadIdx.y;
     int offset_x = blockDim.x * gridDim.x;
     int offset_y = blockDim.y * gridDim.y;
-
-
     for (int x = id_x+i+1; x < n; x += offset_x)
         for (int y = id_y+i+1; y < n; y += offset_y)
             matrix[y*n + x] += matrix[y*n + i] * (-matrix[i*n + x] / matrix[i*n + i]);

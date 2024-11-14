@@ -1,5 +1,5 @@
 NVCC = nvcc
-NVCCFLAGS = --std=c++11 -G -g
+NVCCFLAGS = --std=c++11
 CPP = g++
 CPPFLAGS = --std=c++11 -g
 BIN = a.out
