@@ -11,7 +11,7 @@
 #define DIFFUSE_COEF 1.0
 #define SPECULAR_COEF 0.5
 
-__host__ __device__ vec3f phongShading(const ray_t& ray, const vec3d& hit, const polygon_t& polygon, int id, const light_source_t* light_sources, int ligth_sources_number, const polygon_t* polygons, int n_polygons) {
+__host__ __device__ vec3f phongShading(const ray_t& ray, const vec3d& hit, const polygon_t& polygon, int id, const light_source_t* light_sources, int ligth_sources_number, const polygon_t* polygons, int polygons_number) {
     vec3f polygon_color = polygon.getColor(ray, hit);
     vec3f resulting_color = AMBIENT_COEF * polygon.blend_coef * ray.coef * polygon_color;
 
@@ -21,7 +21,7 @@ __host__ __device__ vec3f phongShading(const ray_t& ray, const vec3d& hit, const
         ray_t light_ray(hit, light_dir, ray.pix_id);
         vec3f visibility_coef(1.0f, 1.0f, 1.0f);
 
-        for (int i = 0; i < n_polygons; ++i) {
+        for (int i = 0; i < polygons_number; ++i) {
             if (i == id) continue;
 
             double t;
